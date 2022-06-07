@@ -1,16 +1,15 @@
 import { configureStore } from "@reduxjs/toolkit";
-import rootReducer from "./reducers";
+import rootReducer from "./slices";
 import rootSaga from "./sagas";
 import createSagaMiddleware from "@redux-saga/core";
 
 const sagaMiddleware = createSagaMiddleware();
 
-const store = configureStore({
+export const store = configureStore({
   reducer: rootReducer,
   middleware: [sagaMiddleware],
-  devTools: process.env.NODE_ENV !== "production",
 });
 
 sagaMiddleware.run(rootSaga);
 
-export default store;
+export type AppDispatch = typeof store.dispatch;

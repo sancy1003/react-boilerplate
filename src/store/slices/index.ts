@@ -1,8 +1,8 @@
 import { combineReducers } from "@reduxjs/toolkit";
-import boilerPlateReducer from "./boilerPlateReducer";
+import boilerPlateReducer from "./boilerPlateSlice";
 
 const rootReducer = combineReducers({
-  boilerPlate: boilerPlateReducer,
+  boilerPlate: boilerPlateReducer.reducer,
 });
 
 export default rootReducer;

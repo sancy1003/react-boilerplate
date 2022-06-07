@@ -1,27 +1,23 @@
-import { put, all, fork, takeLatest } from "redux-saga/effects";
-import {
-  BOILERPLATE_REQUEST,
-  BOILERPLATE_SUCCESS,
-  BOILERPLATE_FAILURE,
-} from "../actionTypes";
+import { call, takeLatest, fork, all, put } from "redux-saga/effects";
+import boilerPlateSlice from "@store/slices/boilerPlateSlice";
 
-// function boilerPlateAPI(params) {
-//   return axios.get("/api/boilerPlateAPI/", params);
-// }
+const { boilerPlate, boilerPlateSuccess, boilerPlateFailure } =
+  boilerPlateSlice.actions;
 
-function* boilerPlate(action: any) {
+function* callBoilerPlateSaga() {
   try {
-    //const result = yield call(boilerPlateAPI, action.params);
-    yield put({ type: BOILERPLATE_SUCCESS, data: "SUCCESS" });
-  } catch (err) {
-    yield put({ type: BOILERPLATE_FAILURE, data: "FAIL" });
+    const result = "success";
+    yield put(boilerPlateSuccess(result));
+  } catch (error) {
+    const result = "fail";
+    yield put(boilerPlateFailure(result));
   }
 }
 
-function* watchBoilerPlate() {
-  yield takeLatest(BOILERPLATE_REQUEST, boilerPlate);
+function* watchCallBoilerPlateSaga() {
+  yield takeLatest(boilerPlate, callBoilerPlateSaga);
 }
 
-export default function* boilerPlateSaga() {
-  yield all([fork(watchBoilerPlate)]);
+export default function* MemberSaga() {
+  yield all([fork(watchCallBoilerPlateSaga)]);
 }
